@@ -16,7 +16,7 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker
-      - run
+      - run:
           name: Deploy container
           command: |
             docker-compose -f docker-compose.yml run -d --no-deps web
