@@ -9,7 +9,7 @@ jobs:
           - POSTGRES_DB: db_ci
     steps:
       - checkout
-      - run: sudo apt-get install curl
+      - run: apt-get install curl
       - run:
           name: Install Docker Compose
           command: |
