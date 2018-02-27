@@ -1,0 +1,29 @@
+FROM php:7.2-apache
+
+MAINTAINER Gabriel Rissi <gabriel2012rissi@gmail.com>
+
+ENV CI_DIR /var/www/html/codeigniter
+
+RUN apt-get update && \
+    apt-get install -y curl \
+                       git \
+                       unzip \
+                       libpq-dev \
+    && docker-php-ext-install pgsql
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/bin/ --filename=composer
+
+RUN mkdir -p ${CI_DIR}
+WORKDIR ${CI_DIR}
+
+COPY ./ci-data/composer.json ${CI_DIR}
+
+RUN composer install --no-interaction
+
+COPY ./ci-data ${CI_DIR}
+
+EXPOSE 80
+
+CMD [ "/usr/sbin/apache2ctl", "-D", "FOREGROUND" ]

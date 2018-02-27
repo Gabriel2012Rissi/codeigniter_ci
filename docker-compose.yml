@@ -1,0 +1,58 @@
+version: "3.4"
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - type: bind
+        source: ./db-data
+        target: /var/lib/postgresql/data
+        bind:
+          propagation: "rprivate"
+    restart: always
+    environment:
+      POSTGRES_USER: ci-test
+      POSTGRES_PASSWORD: test123
+      POSTGRES_DB: db_ci
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    networks:
+      - dbnet
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-ci
+    ports:
+      - 80:80
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - type: bind
+        source: ./ci-data
+        target: /var/www/html/codeigniter
+        bind:
+          propagation: "rprivate"
+    environment:
+      DB_USER: ci-test
+      DB_PASSWORD: test123
+    depends_on:
+      - db
+    networks:
+      - webnet
+      - dbnet
+
+networks:
+  webnet:
+  dbnet:
+
+volumes:
+  dbvolume:
