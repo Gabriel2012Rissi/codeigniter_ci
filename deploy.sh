@@ -15,7 +15,7 @@ else
     echo "codeigniter" >> "$DIRECTORY/secrets/db_user.txt"
     gpg --gen-random --armor 1 14 >> "$DIRECTORY/secrets/db_password.txt"
   fi
-  echo "docker directory was created successfully... everything is ready!!"
+  echo "docker directory was created successfully... everything is ready... ;)"
   exit 0
 fi
 
