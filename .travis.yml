@@ -1,10 +1,6 @@
 env:
   DOCKER_COMPOSE_VERSION: 1.19.0
 
-language: php
-php:
-  - 7.2.2
-
 services:
   - docker
 
@@ -20,7 +16,7 @@ before_install:
 
 install:
   - docker-compose -f development.yml up -d
-  - curl ‐‐retry 10 ‐‐retry‐delay 5 ‐v http://localhost/codeigniter/index.php
+  - curl ‐‐retry 10 ‐‐retry‐delay 5 ‐v http://localhost
 
 after_success:
   - /bin/bash echo 'Processo efeuado com sucesso...'
