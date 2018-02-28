@@ -18,3 +18,5 @@ else
   echo "docker directory was created successfully... everything is ready!!"
   exit 0
 fi
+
+mkdir -p db-data

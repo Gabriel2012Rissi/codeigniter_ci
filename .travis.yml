@@ -1,0 +1,29 @@
+sudo: required
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.19.0
+
+laguage: php
+
+services:
+  - docker
+
+before_install:
+  - apt update
+  - apt -y upgrade
+  - apt -y install curl
+  - apt install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - docker-compose --version
+  - rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - mv docker-compose /usr/local/bin
+  - docker-compose --version
+
+install:
+  - docker-compose up -f development.yml -d
+  - curl ‐‐retry 10 ‐‐retry‐delay 5 ‐v http://localhost/codeigniter/index.php
+
+after_success:
+  - /bin/bash echo 'Processo efeuado com sucesso...'
+
