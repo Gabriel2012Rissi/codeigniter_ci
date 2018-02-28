@@ -9,10 +9,10 @@ services:
   - docker
 
 before_install:
-  - apt update
-  - apt -y upgrade
-  - apt -y install curl
-  - apt install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - apt-get update
+  - apt-get -y upgrade
+  - apt-get -y install curl
+  - apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
   - docker-compose --version
   - rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
