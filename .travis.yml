@@ -18,9 +18,11 @@ before_install:
 
 install:
   - docker-compose -f development.yml up -d
+
+script:
   - curl --retry 10 --retry-delay 5 -v http://127.0.0.1
 
-after_install:
-  - docker-compose down
+after_success:
+  - docker-compose -f development.yml down
   - /bin/bash echo "Processo construido com sucesso..."
 
