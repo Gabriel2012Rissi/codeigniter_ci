@@ -6,6 +6,7 @@ language: bash
 notifications:
   slack:
     on_success: always
+    on_failure: always
     rooms:
       - huebrops:oQZYgN0fvoyFBVjuIUQREc8h
       - huebrops:oQZYgN0fvoyFBVjuIUQREc8h#general
@@ -28,7 +29,7 @@ install:
   - docker-compose -f development.yml up -d
 
 script:
-  - curl --retry 10 --retry-delay 5 -v http://127.0.0.1
+  - curl --retry 10 --retry-delay 5 -v http://127.0.0.1/testing
 
 after_success:
   - docker-compose -f development.yml down
