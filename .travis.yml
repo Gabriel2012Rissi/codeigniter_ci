@@ -7,6 +7,7 @@ notifications:
   slack:
     on_success: always
     rooms:
+      - huebrops:oQZYgN0fvoyFBVjuIUQREc8h
       - huebrops:oQZYgN0fvoyFBVjuIUQREc8h#general
       - huebrops:oQZYgN0fvoyFBVjuIUQREc8h#random
 
